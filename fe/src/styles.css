@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@bryntum/calendar/calendar.stockholm.css";
+body,
+html {
+    margin         : 0;
+    display        : flex;
+    flex-direction : column;
+    height         : 100vh;
+    font-family    : Lato, "Open Sans", Helvetica, Arial, sans-serif;
+    font-size      : 14px;
+}
+app-root {
+    flex : 1 1 100%;
+}

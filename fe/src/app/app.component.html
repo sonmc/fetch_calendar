@@ -1,0 +1,27 @@
+<div class="container" style="margin-top: 100px">
+  <div class="row">
+    <select
+      class="browser-default custom-select col-md-6"
+      [(ngModel)]="calendarId"
+      name="calendarId"
+      (change)="changeAccount()"
+    >
+      <option value="sonmc90@gmail.com">sonmc90@gmail.com</option>
+      <option value="maicongson@zen8labs.com">maicongson@zen8labs.com</option>
+    </select>
+  </div>
+  <br />
+  <div class="row">
+    <bryntum-project-model
+      #project
+      [events]="events"
+      [resources]="resources"
+    ></bryntum-project-model>
+
+    <bryntum-calendar
+      #calendar
+      [date]="calendarConfig.date"
+      [project]="project"
+    ></bryntum-calendar>
+  </div>
+</div>
