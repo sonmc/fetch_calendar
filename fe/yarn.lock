@@ -1921,6 +1921,13 @@ ajv@^8.0.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
+angularx-social-login@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/angularx-social-login/-/angularx-social-login-4.1.0.tgz#e32333605bd5b36a05148b82aa329cebbd747d98"
+  integrity sha512-nSYLvGhI7MZtN/RxRie5GEl/rytIJPRPeSQSgiXbDESJC9zjuik629kqMCPnLCRk5SfTBrXSNcpZ8X/5kgsDKg==
+  dependencies:
+    tslib "^2.0.0"
+
 ansi-colors@4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.3.tgz#37611340eb2243e70cc604cad35d63270d48781b"

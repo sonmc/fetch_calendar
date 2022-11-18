@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sonmc\\OneDrive\\Desktop\\New folder\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj": {}
+    "D:\\Projects\\fetch_calendar\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sonmc\\OneDrive\\Desktop\\New folder\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj": {
+    "D:\\Projects\\fetch_calendar\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sonmc\\OneDrive\\Desktop\\New folder\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj",
+        "projectUniqueName": "D:\\Projects\\fetch_calendar\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj",
         "projectName": "Calendar.BE",
-        "projectPath": "C:\\Users\\sonmc\\OneDrive\\Desktop\\New folder\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj",
+        "projectPath": "D:\\Projects\\fetch_calendar\\be\\Calendar.BE\\Calendar.BE\\Calendar.BE.csproj",
         "packagesPath": "C:\\Users\\sonmc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sonmc\\OneDrive\\Desktop\\New folder\\be\\Calendar.BE\\Calendar.BE\\obj\\",
+        "outputPath": "D:\\Projects\\fetch_calendar\\be\\Calendar.BE\\Calendar.BE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -64,6 +64,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[108.0.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
