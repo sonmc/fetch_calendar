@@ -1194,25 +1194,6 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@bryntum/calendar-angular@^5.2.2":
-  version "5.2.2"
-  resolved "https://npm.bryntum.com/@bryntum%2fcalendar-angular/-/calendar-angular-5.2.2.tgz#1be2723b2632233e4b263e264e3ef2be812a5809"
-  integrity sha512-4A+97ts2CIvzLyjtRaMOifUychV20bgbPH/NwAN5XluVawZNoHb49EcRjFFiCf5qHy52UCO/g1UcAi8sgo9WaQ==
-  dependencies:
-    tslib "^2.0.0"
-
-"@bryntum/calendar-trial-lib@1.0.0":
-  version "1.0.0"
-  resolved "https://npm.bryntum.com/@bryntum%2fcalendar-trial-lib/-/calendar-trial-lib-1.0.0.tgz#24d5b6105140d5f0994329f7c0e7559ca4ef7719"
-  integrity sha512-BZ62YWOzxphmjBgsBW5ayc4IDIY0J4ed9AGVGC/tM8PGnm6gpWmi/DYoyIcQzQHLy09KgsPh5TbM3YE9ZAvrQA==
-
-"@bryntum/calendar@npm:@bryntum/calendar-trial@^5.2.2":
-  version "5.2.2"
-  resolved "https://npm.bryntum.com/@bryntum%2fcalendar-trial/-/calendar-trial-5.2.2.tgz#5111323ffe9bfb091f44512c410699688e81cd3d"
-  integrity sha512-UcDHY/damQQ1CbRhBjm1mroM1nYNlu6rvrAkEDOZIOAF7UPiud9RfOmBcWiMHLaXNz3iHUCdIQQ2TfpaB3LfJA==
-  dependencies:
-    "@bryntum/calendar-trial-lib" "1.0.0"
-
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"

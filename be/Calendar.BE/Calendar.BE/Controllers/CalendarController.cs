@@ -6,6 +6,7 @@ using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
+using Google.Apis.Util;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 
@@ -21,51 +22,26 @@ namespace Calendar.BE.Controllers
             dbContext = _dbContext;
         }
 
-        [HttpGet("verify")]
-        public async Task<IActionResult> Verify(string code)
-        {
-            RestClient restClient = new RestClient("https://oauth2.googleapis.com/token");
-            RestRequest request = new RestRequest();
-            request.AddQueryParameter("client_id", "475624587151-p1e4spm2s469j4s9g7dq3au2flar356k.apps.googleusercontent.com");
-            request.AddQueryParameter("code", code);
-            request.AddQueryParameter("client_secret", "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");
-            request.AddQueryParameter("grant_type", "authorization_code");
-            try
-            {
-                var response = restClient.Post(request);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw;
-            }
-            return Ok("");
-        }
-
         [HttpPost("fetch")]
         public async Task<IActionResult> Fetch(AuthDto auth)
-        {  
+        {
+            string[] scopes = { "https://www.googleapis.com/auth/gmail.readonly" };
+            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    new ClientSecrets
+                    {
+                        ClientId = "475624587151-p1e4spm2s469j4s9g7dq3au2flar356k.apps.googleusercontent.com",
+                        ClientSecret = "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"
+                    },
+                    scopes,
+                    "user",
+                    CancellationToken.None).Result;
 
-            var flow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
-            {
-                ClientSecrets = new ClientSecrets
-                {
-                    ClientId = "475624587151-p1e4spm2s469j4s9g7dq3au2flar356k.apps.googleusercontent.com",
-                    ClientSecret = "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"
-                },
-                Scopes = new[] { CalendarService.Scope.Calendar }
-            });
-
-
-            var credential = new UserCredential(flow, Environment.UserName, new TokenResponse
-            {
-                AccessToken = auth.AccessToken
-            });
+            if (credential.Token.IsExpired(SystemClock.Default))
+                credential.RefreshTokenAsync(CancellationToken.None).Wait();
 
             var services = new CalendarService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = credential,
-                ApplicationName = "Google Canlendar Api",
+                HttpClientInitializer = credential
             });
 
             var request = services.Events.List(auth.CalendarId);
