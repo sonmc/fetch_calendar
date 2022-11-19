@@ -4,7 +4,8 @@ import {
   SocialAuthService,
   GoogleLoginProvider,
   SocialUser,
-} from 'angularx-social-login'; 
+} from 'angularx-social-login';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,18 +24,24 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  events: any = [];
+  socialUser!: SocialUser;
+  isLoggedin?: boolean;
 
-  constructor( 
+  events: any = [];
+  event: any = {
+    summary: '',
+    startDate: new Date(),
+    endDate: new Date(),
+  };
+  constructor(
     private socialAuthService: SocialAuthService,
     private calendarService: CalendarService,
     private cd: ChangeDetectorRef
   ) {}
+
   ngOnInit() {
- 
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
-      debugger;
       if (user.response.access_token == user.authToken) {
         console.log(user.response.access_token);
       }
@@ -61,20 +68,25 @@ export class AppComponent implements OnInit {
           .filter((x: any) => x?.summary)
           .map((event: any, i: number) => {
             return {
-              id: ++i,
-              name: event.summary,
+              index: i++,
+              summary: event.summary,
               startDate: event.start.dateTime,
               endDate: event.end.dateTime,
             };
           });
-        console.log(this.events);
         this.cd.detectChanges();
       })
       .catch((e) => {});
   };
- 
-  socialUser!: SocialUser;
-  isLoggedin?: boolean;
+
+  create = () => {  
+    this.calendarService
+      .create(this.event)
+      .then((res: any) => {
+         this.events.push(res);
+      })
+      .catch((e: any) => {});
+  };
 
   loginWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);

@@ -22,17 +22,16 @@ namespace Calendar.BE.Controllers
             dbContext = _dbContext;
         }
 
-        [HttpPost("fetch")]
-        public async Task<IActionResult> Fetch(AuthDto auth)
+        private CalendarService GetService()
         {
-            string[] scopes = { "https://www.googleapis.com/auth/gmail.readonly" };
+            string[] Scopes = { "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.readonly" };
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     new ClientSecrets
                     {
                         ClientId = "475624587151-p1e4spm2s469j4s9g7dq3au2flar356k.apps.googleusercontent.com",
                         ClientSecret = "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"
                     },
-                    scopes,
+                    Scopes,
                     "user",
                     CancellationToken.None).Result;
 
@@ -41,9 +40,17 @@ namespace Calendar.BE.Controllers
 
             var services = new CalendarService(new BaseClientService.Initializer()
             {
+                ApplicationName = "Google Canlendar Api",
                 HttpClientInitializer = credential
             });
+            return services;
+        }
 
+        [HttpPost("fetch")]
+        public async Task<IActionResult> Fetch(AuthDto auth)
+        {
+
+            var services = GetService();
             var request = services.Events.List(auth.CalendarId);
             try
             {
@@ -60,45 +67,29 @@ namespace Calendar.BE.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateGoogleCalendar(EventDto eventDto)
         {
-            string[] Scopes = { "https://www.googleapis.com/auth/calendar" };
-            string ApplicationName = "Google Canlendar Api";
-            UserCredential credential;
-            using (var stream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "token.json"), FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // define services
-            var services = new CalendarService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
+            var services = GetService();
             // define request
+            var attendees = new List<EventAttendee>();
+            EventAttendee a = new EventAttendee();
+            a.Email = "sonmc90@gmail.com";
+            a.DisplayName = "Sơn Mai";
+            attendees.Add(a);
             Event eventCalendar = new Event()
             {
                 Summary = eventDto.Summary,
-                Location = eventDto.Location,
+                Attendees = attendees,
                 Start = new EventDateTime
                 {
-                    DateTime = eventDto.Start,
-                    TimeZone = "Asia/Ho_Chi_Minh"
+                    DateTime = DateTime.Parse(eventDto.StartDate)
                 },
                 End = new EventDateTime
                 {
-                    DateTime = eventDto.End,
-                    TimeZone = "Asia/Ho_Chi_Minh"
+                    DateTime = DateTime.Parse(eventDto.EndDate)
                 },
-                Description = eventDto.Description
             };
-            var eventRequest = services.Events.Insert(eventCalendar, "primary");
+            var eventRequest = services.Events.Insert(eventCalendar, "maicongson0208@gmail.com");
             var requestCreate = await eventRequest.ExecuteAsync();
-            return Ok();
+            return Ok(requestCreate);
         }
 
         [HttpGet("getAccounts")]

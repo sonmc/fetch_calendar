@@ -23,6 +23,20 @@ export class CalendarService {
     });
   };
 
+  create= (event: any): Promise<Object> => {
+    return new Promise((resolve, reject) => {
+      let url = `${this.API_URL}calendars/create`;
+      this.httpClient.post(url, event).subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  };
+  
   getAccount = (): Promise<Object> => {
     return new Promise((resolve, reject) => {
       let url = `${this.API_URL}calendars/getAccounts`;
