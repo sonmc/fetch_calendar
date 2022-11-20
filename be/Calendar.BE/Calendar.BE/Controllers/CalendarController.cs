@@ -46,12 +46,12 @@ namespace Calendar.BE.Controllers
             return services;
         }
 
-        [HttpPost("fetch")]
-        public async Task<IActionResult> Fetch(AuthDto auth)
+        [HttpGet("fetch")]
+        public async Task<IActionResult> Fetch(string calendarId)
         {
 
             var services = GetService();
-            var request = services.Events.List(auth.CalendarId);
+            var request = services.Events.List(calendarId);
             try
             {
                 var response = await request.ExecuteAsync();

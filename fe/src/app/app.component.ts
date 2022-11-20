@@ -47,22 +47,17 @@ export class AppComponent implements OnInit {
       }
       this.isLoggedin = user != null;
 
-      if (user) {
-        var auth = {
-          accessToken: user.authToken,
-          calendarId: user.email,
-          refreshToken: user.idToken,
-        };
-        this.fetch(auth);
+      if (user) { 
+        this.fetch(user.email);
       }
       console.log(this.socialUser);
     });
     //this.getAccount();
   }
 
-  fetch = (auth: any) => {
+  fetch = (calendarId: any) => {
     this.calendarService
-      .fetch(auth)
+      .fetch(calendarId)
       .then((res: any) => {
         this.events = res
           .filter((x: any) => x?.summary)

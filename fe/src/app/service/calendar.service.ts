@@ -9,10 +9,10 @@ export class CalendarService {
 
   }
 
-  fetch = (auth: any): Promise<Object> => {
+  fetch = (calendarId: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${this.API_URL}calendars/fetch`;
-      this.httpClient.post(url, auth).subscribe(
+      let url = `${this.API_URL}calendars/fetch?calendarId=${calendarId}`;
+      this.httpClient.get(url).subscribe(
         (res) => {
           resolve(res);
         },
