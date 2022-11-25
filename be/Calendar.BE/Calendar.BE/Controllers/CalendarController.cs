@@ -22,14 +22,14 @@ namespace Calendar.BE.Controllers
             dbContext = _dbContext;
         }
 
-        private CalendarService GetService()
+        private CalendarService GetService(string clientId)
         {
             string[] Scopes = { "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.readonly" };
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     new ClientSecrets
                     {
-                        ClientId = "475624587151-p1e4spm2s469j4s9g7dq3au2flar356k.apps.googleusercontent.com",
-                        ClientSecret = "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"
+                        ClientId = clientId,
+                        ClientSecret = "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"
                     },
                     Scopes,
                     "user",
@@ -47,10 +47,10 @@ namespace Calendar.BE.Controllers
         }
 
         [HttpGet("fetch")]
-        public async Task<IActionResult> Fetch(string calendarId)
+        public async Task<IActionResult> Fetch(string calendarId, string clientId)
         {
 
-            var services = GetService();
+            var services = GetService(clientId);
             var request = services.Events.List(calendarId);
             try
             {
@@ -67,13 +67,11 @@ namespace Calendar.BE.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateGoogleCalendar(EventDto eventDto)
         {
-            var services = GetService();
+            var services = GetService(eventDto.ClientId);
             // define request
             var attendees = new List<EventAttendee>();
             EventAttendee a = new EventAttendee();
-            a.Email = "sonmc90@gmail.com";
-            a.DisplayName = "Sơn Mai";
-            attendees.Add(a);
+           
             Event eventCalendar = new Event()
             {
                 Summary = eventDto.Summary,
@@ -87,7 +85,7 @@ namespace Calendar.BE.Controllers
                     DateTime = DateTime.Parse(eventDto.EndDate)
                 },
             };
-            var eventRequest = services.Events.Insert(eventCalendar, "maicongson0208@gmail.com");
+            var eventRequest = services.Events.Insert(eventCalendar, eventDto.CalendarId);
             var requestCreate = await eventRequest.ExecuteAsync();
             return Ok(requestCreate);
         }

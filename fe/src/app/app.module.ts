@@ -1,7 +1,6 @@
-
 import { NgModule } from '@angular/core';
-import {   FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,35 +13,16 @@ import {
 import { GoogleLoginProvider } from 'angularx-social-login';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     HttpClientModule,
     SocialLoginModule,
   ],
-  providers: [
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider("475624587151-p1e4spm2s469j4s9g7dq3au2flar356k.apps.googleusercontent.com"),
-          },
-        ],
-        onError: (err: any) => {
-          console.error(err);
-        },
-      } as SocialAuthServiceConfig,
-    },
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

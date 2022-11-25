@@ -4,14 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CalendarService {
-  private API_URL = "https://localhost:7200/api/";
-  constructor(private httpClient: HttpClient) {
+  private API_URL = 'https://localhost:7200/api/';
+  constructor(private httpClient: HttpClient) {}
 
-  }
-
-  fetch = (calendarId: any): Promise<Object> => {
+  fetch = (calendarId: any, clientId: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${this.API_URL}calendars/fetch?calendarId=${calendarId}`;
+      let url = `${this.API_URL}calendars/fetch?calendarId=${calendarId}&clientId=${clientId}`;
       this.httpClient.get(url).subscribe(
         (res) => {
           resolve(res);
@@ -23,7 +21,7 @@ export class CalendarService {
     });
   };
 
-  create= (event: any): Promise<Object> => {
+  create = (event: any): Promise<Object> => {
     return new Promise((resolve, reject) => {
       let url = `${this.API_URL}calendars/create`;
       this.httpClient.post(url, event).subscribe(
@@ -36,7 +34,7 @@ export class CalendarService {
       );
     });
   };
-  
+
   getAccount = (): Promise<Object> => {
     return new Promise((resolve, reject) => {
       let url = `${this.API_URL}calendars/getAccounts`;
@@ -50,5 +48,4 @@ export class CalendarService {
       );
     });
   };
-
 }
